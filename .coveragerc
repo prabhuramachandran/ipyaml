@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = ipyaml
+omit = */tests/*
+
+[report]
+exclude_lines =
+    except ImportError:
+    if __name__ == .__main__.:
