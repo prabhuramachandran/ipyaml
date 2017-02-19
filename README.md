@@ -1,9 +1,15 @@
 # IPython notebooks to YAML
 
+
+[![Build Status](https://travis-ci.org/prabhuramachandran/ipyaml.svg?branch=master)](https://travis-ci.org/prabhuramachandran/ipyaml)
+[![codecov](https://codecov.io/gh/prabhuramachandran/ipyaml/branch/master/graph/badge.svg)](https://codecov.io/gh/prabhuramachandran/ipyaml)
+
+
+
 This simple project allows one to convert IPython notebooks to easily editable
 YAML files. This is very similar to the
-[notedown](http://github.com/aaren/notedown)
-[ipymd](http://github.com/rossant/ipymd) package but supports all IPython
+[notedown](http://github.com/aaren/notedown) and
+[ipymd](http://github.com/rossant/ipymd) packages but supports all IPython
 outputs as well.
 
 The advantage of using this package is that you get complete compatibility
