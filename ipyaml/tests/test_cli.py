@@ -1,8 +1,17 @@
 import nbformat
 
-from ipyaml.cli import main, read_nb, read_yaml
+from ipyaml.cli import main, read_nb, read_yaml, file_type
 
 from .test_convert import make_notebook
+
+
+def test_file_type():
+    for fname in ('test.ipyaml', 'test.ipyml', 'test.yml', 'test.yaml'):
+        assert file_type(fname) == 'yaml'
+
+    assert file_type('test.ipynb') == 'notebook'
+
+    assert file_type('test.c') is None
 
 
 def test_main(tmpdir):

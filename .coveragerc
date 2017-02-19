@@ -1,7 +1,10 @@
 [run]
 branch = True
 source = ipyaml
-omit = */tests/*
+omit =
+     */tests/*
+     ipyaml/contents_manager.py
+     ipyaml/api.py
 
 [report]
 exclude_lines =

@@ -1,5 +1,6 @@
 from __future__ import print_function
 import argparse
+import os
 
 import nbformat
 import yaml
@@ -16,6 +17,17 @@ def read_yaml(fname):
     return yaml_to_nb(data)
 
 
+def file_type(fname):
+    _, ext = os.path.splitext(fname)
+    YAML_EXT = ('.yaml', '.yml', '.ipyml', '.ipyaml')
+    if ext in YAML_EXT:
+        return 'yaml'
+    elif ext in ['.ipynb']:
+        return 'notebook'
+    else:
+        return None
+
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         "Convert Jupyter notebooks to YAML and vice-versa."
@@ -25,19 +37,22 @@ def main(args=None):
     args = parser.parse_args(args)
     input = args.input[0]
     output = args.output[0]
-    YAML_EXT = ('.yaml', '.yml', '.ipyml', '.ipyaml')
-    if input.endswith(YAML_EXT):
+    ift = file_type(input)
+    if ift == 'yaml':
         nb = read_yaml(input)
-    elif input.endswith('.ipynb'):
+    elif ift == 'notebook':
         nb = read_nb(input)
     else:
         raise RuntimeError('Unknown input file format, %s' % input)
 
-    if output.endswith(YAML_EXT):
+    oft = file_type(output)
+    if oft == 'yaml':
         yml = nb_to_yaml(nb)
         print(yml, file=open(output, 'w'))
-    elif output.endswith('.ipynb'):
+    elif oft == 'notebook':
         nbformat.write(nb, open(output, 'w'))
+    else:
+        raise RuntimeError('Unknown output file format, %s' % output)
 
 
 if __name__ == '__main__':
