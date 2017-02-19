@@ -1,0 +1,7 @@
+*.py[co]
+*~
+.coverage
+.cache/
+build/
+dist/
+*.egg-info/
