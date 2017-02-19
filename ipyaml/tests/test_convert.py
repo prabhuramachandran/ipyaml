@@ -6,7 +6,7 @@ import yaml
 
 
 def make_notebook():
-    src = "print(1)\n"
+    src = "print(1)"
     output = new_output('stream', text='1\n')
     code1 = new_code_cell(
         source=src,
@@ -14,7 +14,7 @@ def make_notebook():
         metadata=dict(collapsed=False),
         execution_count=1
     )
-    src = "list(range(3))\n"
+    src = "list(range(3))"
     output = new_output(
         'execute_result',
         {'text/plain': "[0, 1, 2]"},

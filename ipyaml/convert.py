@@ -38,7 +38,7 @@ def nb_to_yaml(nb):
         code = ''.join(cell['source'])
         prefix = 6*' '
         out.write(indent(code, prefix))
-        out.write('\n')
+        out.write('\n\n')
         prefix = 4*' '
         if cell_type == 'code':
             index = len(data)
@@ -82,6 +82,9 @@ def yaml_to_nb(data):
             cell = new_code_cell()
         else:
             raise RuntimeError('Unknown cell type for cell:\n%s' % ci)
+        if cell.cell_type == 'code' and source.endswith('\n'):
+            # Skip trailing newlines in code cells.
+            source = source[:-1]
         cell['source'] = source
         cell_id = ci.pop('id', None)
         if cell_id is not None:
