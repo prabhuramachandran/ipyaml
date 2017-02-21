@@ -34,6 +34,11 @@ def main(args=None):
     )
     parser.add_argument("input", nargs=1, help="Input file (ipynb or yaml)")
     parser.add_argument("output", nargs=1, help="Output file")
+    parser.add_argument(
+        '--no-output', dest='no_output',
+        action='store_true', default=False,
+        help='Do not store output in YAML file. (defaults to False)'
+    )
     args = parser.parse_args(args)
     input = args.input[0]
     output = args.output[0]
@@ -43,16 +48,20 @@ def main(args=None):
     elif ift == 'notebook':
         nb = read_nb(input)
     else:
-        raise RuntimeError('Unknown input file format, %s' % input)
+        parser.print_usage()
+        message = 'ERROR: Unknown input file format, %s\n' % input
+        parser.exit(1, message)
 
     oft = file_type(output)
     if oft == 'yaml':
-        yml = nb_to_yaml(nb)
+        yml = nb_to_yaml(nb, not args.no_output)
         print(yml, file=open(output, 'w'))
     elif oft == 'notebook':
         nbformat.write(nb, open(output, 'w'))
     else:
-        raise RuntimeError('Unknown output file format, %s' % output)
+        parser.print_usage()
+        message = 'ERROR: Unknown output file format, %s\n' % output
+        parser.exit(1, message)
 
 
 if __name__ == '__main__':

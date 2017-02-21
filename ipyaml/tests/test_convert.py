@@ -1,3 +1,5 @@
+from textwrap import dedent
+import pytest
 from nbformat.v4 import (new_notebook, new_code_cell, new_markdown_cell,
                          new_output)
 
@@ -46,3 +48,40 @@ def test_nb_to_yaml():
     print(nb)
     print(nb1)
     assert nb1 == nb
+
+
+def test_nb_to_yaml_without_outputs():
+    # Given
+    nb = make_notebook()
+
+    # When
+    yml = nb_to_yaml(nb, dump_output=False)
+    data = yaml.load(StringIO(yml))
+    nb1 = yaml_to_nb(data)
+
+    # Then
+    for key in nb:
+        if key != 'cells':
+            assert nb[key] == nb1[key]
+    assert len(nb1.cells) == len(nb.cells)
+    for i in range(3):
+        assert nb1.cells[i].cell_type == nb.cells[i].cell_type
+        assert nb1.cells[i].source == nb.cells[i].source
+
+
+def test_yaml_with_bad_cell_type_raises_error():
+    # Given
+    data = dedent("""\
+    cells:
+      - source: |
+          print(1)
+          print(2)
+    """)
+    s = StringIO(data)
+    yml = yaml.load(s)
+
+    # When/Then
+    with pytest.raises(RuntimeError) as excinfo:
+        yaml_to_nb(yml)
+
+    assert 'Unknown cell type for cell' in str(excinfo.value)

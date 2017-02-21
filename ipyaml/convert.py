@@ -23,7 +23,7 @@ def to_dict(o):
         return o
 
 
-def nb_to_yaml(nb):
+def nb_to_yaml(nb, dump_output=True):
     """Given a notebook instance, generate the YAML.
     """
     nb_data = to_dict(nb)
@@ -40,7 +40,7 @@ def nb_to_yaml(nb):
         out.write(indent(code, prefix))
         out.write('\n\n')
         prefix = 4*' '
-        if cell_type == 'code':
+        if cell_type == 'code' and dump_output:
             index = len(data)
             cell_data = dict(
                 outputs=cell['outputs'],
@@ -57,11 +57,12 @@ def nb_to_yaml(nb):
 
     out.write('# ' + '-'*75 + '\n')
     out.write(yaml.safe_dump(nb_data, default_flow_style=False))
-    out.write('\n# ' + '-'*75 + '\n')
-    out.write('data:\n')
-    prefix = 2*' '
-    data = yaml.safe_dump(data, default_flow_style=True)
-    out.write(indent(data, prefix))
+    if dump_output:
+        out.write('\n# ' + '-'*75 + '\n')
+        out.write('data:\n')
+        prefix = 2*' '
+        data = yaml.safe_dump(data, default_flow_style=True)
+        out.write(indent(data, prefix))
     out.seek(0)
     return out.read()
 
@@ -72,6 +73,7 @@ def yaml_to_nb(data):
     yaml_data = dict(data)
     cell_info = yaml_data.pop('cells')
     cell_data = yaml_data.pop('data', [])
+    n_cell_data = len(cell_data)
     cells = []
     for ci in cell_info:
         if 'markdown' in ci:
@@ -87,7 +89,7 @@ def yaml_to_nb(data):
             source = source[:-1]
         cell['source'] = source
         cell_id = ci.pop('id', None)
-        if cell_id is not None:
+        if cell_id is not None and cell_id < n_cell_data:
             ci.update(cell_data[cell_id])
 
         cell.update(ci)
