@@ -34,6 +34,14 @@ Run the command `ipyaml` to convert between the two formats:
 
     $ ipyaml notebook.ipyml notebook.ipynb
 
+If you do not want to store the cell outputs in your YAML files you may also
+run the `ipyaml` script as follows:
+
+    $ ipyaml --no-output notebook.ipynb notebook.ipyml
+
+This will loose all outputs. By default, all the outputs are also written to
+the output. Take a look at the output without output to see that it is very
+easy to manually remove the outputs if they are not desired.
 
 If you want jupyter to automatically load and save the `.ipyml` files. Add the
 following to your `jupyter_notebook_config.py`:
