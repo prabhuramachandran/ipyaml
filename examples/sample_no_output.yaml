@@ -1,0 +1,71 @@
+cells:
+
+  - markdown: |
+      # An example IPython notebook
+      
+      Some introductory text.  
+      
+      - Some bullet points
+         1. item 1 in *emph*
+         2. item 2 but in **bold**
+      - More bullets...
+
+
+
+  - code: |
+      print("Hello world!")
+
+    metadata:
+      collapsed: false
+
+  - markdown: |
+      ## More markdown
+      
+      Some math:
+      
+      $$
+      e^{i\pi} = -1
+      $$
+      
+      An image:
+      
+      ![Python logo](https://www.python.org/static/community_logos/python-logo
+      -master-v3-TM.png)
+
+
+
+  - code: |
+      %matplotlib inline
+      from matplotlib import pyplot as plt
+      
+      plt.plot(range(5))
+
+    metadata:
+      collapsed: false
+
+  - code: |
+
+
+    metadata:
+      collapsed: true
+
+# The lines below here may be deleted if you do not need them.
+# ---------------------------------------------------------------------------
+metadata:
+  kernelspec:
+    display_name: Python 2
+    language: python
+    name: python2
+  language_info:
+    codemirror_mode:
+      name: ipython
+      version: 2
+    file_extension: .py
+    mimetype: text/x-python
+    name: python
+    nbconvert_exporter: python
+    pygments_lexer: ipython2
+    version: 2.7.11
+nbformat: 4
+nbformat_minor: 0
+

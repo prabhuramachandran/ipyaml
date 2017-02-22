@@ -18,6 +18,11 @@ with IPython notebooks and the ability to edit the files in any text editor.
 The format is YAML so it is not as pretty as Markdown but is a reasonable
 compromise.
 
+An example IPython notebook with the corresponding YAML file both with the
+outputs and without the outputs is available in the
+[examples](https://github.com/prabhuramachandran/ipyaml/tree/master/examples)
+directory.
+
 ## Installation
 
 Install the package as follows:
@@ -39,9 +44,12 @@ run the `ipyaml` script as follows:
 
     $ ipyaml --no-output notebook.ipynb notebook.ipyml
 
-This will loose all outputs. By default, all the outputs are also written to
-the output. Take a look at the output without output to see that it is very
-easy to manually remove the outputs if they are not desired.
+This will not write any of the outputs. By default, all the outputs are also
+written to the output. Take a look at the output without output to see that it
+is very easy to manually remove the outputs if they are not desired. Using
+`--no-output` does not remove the IPython kernelspec and nbformat metadata at
+the end of the file but that may also be safely removed if one does not desire
+it.
 
 If you want jupyter to automatically load and save the `.ipyml` files. Add the
 following to your `jupyter_notebook_config.py`:
