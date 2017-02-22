@@ -1,2 +1,3 @@
 include README.md LICENSE.txt
+recursive-include examples *.ipynb *.yaml *.ipyml
 global-exclude *.pyc *.pyo
