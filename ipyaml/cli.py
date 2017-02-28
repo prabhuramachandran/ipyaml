@@ -13,7 +13,7 @@ def read_nb(fname):
 
 
 def read_yaml(fname):
-    data = yaml.load(open(fname))
+    data = yaml.safe_load(open(fname))
     return yaml_to_nb(data)
 
 
