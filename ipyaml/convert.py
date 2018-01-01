@@ -6,6 +6,7 @@ import yaml
 
 from nbformat.v4 import new_notebook, new_code_cell, new_markdown_cell
 from nbformat.v4.nbbase import NotebookNode
+from nbformat.v4.nbjson import from_dict
 
 
 def indent(text, prefix):
@@ -93,11 +94,11 @@ def yaml_to_nb(data):
         cell['source'] = source
         cell_id = ci.pop('id', None)
         if cell_id is not None and cell_id < n_cell_data:
-            ci.update(cell_data[cell_id])
+            ci.update(from_dict(cell_data[cell_id]))
 
         cell.update(ci)
         cells.append(cell)
 
     nb = new_notebook(cells=cells)
-    nb.update(yaml_data)
+    nb.update(from_dict(yaml_data))
     return nb
