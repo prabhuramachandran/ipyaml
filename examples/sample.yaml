@@ -1,57 +1,58 @@
 cells:
 
-  - markdown: |
-      # An example IPython notebook
-      
-      Some introductory text.  
-      
-      - Some bullet points
-         1. item 1 in *emph*
-         2. item 2 but in **bold**
-      - More bullets...
+- markdown: |
+    # An example IPython notebook
+    
+    Some introductory text.  
+    
+    - Some bullet points
+       1. item 1 in *emph*
+       2. item 2 but in **bold**
+    - More bullets...
 
 
 
-  - code: |
-      print("Hello world!")
+- code: |
+    print("Hello world!")
 
-    id: 0
-    metadata:
-      collapsed: false
+  id: 0
+  metadata:
+    collapsed: false
 
-  - markdown: |
-      ## More markdown
-      
-      Some math:
-      
-      $$
-      e^{i\pi} = -1
-      $$
-      
-      An image:
-      
-      ![Python logo](https://www.python.org/static/community_logos/python-logo
-      -master-v3-TM.png)
-
-
-
-  - code: |
-      %matplotlib inline
-      from matplotlib import pyplot as plt
-      
-      plt.plot(range(5))
-
-    id: 1
-    metadata:
-      collapsed: false
-
-  - code: |
+- markdown: |
+    ## More markdown
+    
+    Some math:
+    
+    $$
+    e^{i\pi} = -1
+    $$
+    
+    An image:
+    
+    ![Python logo](https://www.python.org/static/community_logos/python-logo
+    -master-v3-TM.png)
 
 
-    id: 2
-    metadata:
-      collapsed: true
 
+- code: |
+    %matplotlib inline
+    from matplotlib import pyplot as plt
+    
+    plt.plot(range(5))
+
+  id: 1
+  metadata:
+    collapsed: false
+
+- code: |
+
+
+  id: 2
+  metadata:
+    collapsed: true
+
+# The lines below here may be deleted if you do not need them.
 # ---------------------------------------------------------------------------
 metadata:
   kernelspec:

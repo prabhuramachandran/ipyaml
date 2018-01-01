@@ -32,14 +32,14 @@ def nb_to_yaml(nb, dump_output=True):
     out.write('cells:\n\n')
     data = []
     for cell in cells:
-        prefix = 2*' '
+        prefix = ''
         cell_type = cell['cell_type']
         out.write(indent('- %s: |\n' % cell_type, prefix))
         code = ''.join(cell['source'])
-        prefix = 6*' '
+        prefix = 4*' '
         out.write(indent(code, prefix))
         out.write('\n\n')
-        prefix = 4*' '
+        prefix = 2*' '
         if cell_type == 'code' and dump_output:
             index = len(data)
             cell_data = dict(
@@ -55,6 +55,9 @@ def nb_to_yaml(nb, dump_output=True):
             out.write(indent(yml_data, prefix + '  '))
         out.write('\n')
 
+    out.write(
+        '# The lines below here may be deleted if you do not need them.\n'
+    )
     out.write('# ' + '-'*75 + '\n')
     out.write(yaml.safe_dump(nb_data, default_flow_style=False))
     if dump_output:
