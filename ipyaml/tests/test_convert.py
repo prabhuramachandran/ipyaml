@@ -4,6 +4,7 @@ from nbformat.v4 import (new_notebook, new_code_cell, new_markdown_cell,
                          new_output)
 
 from ipyaml.convert import nb_to_yaml, yaml_to_nb, StringIO
+from ipyaml.convert import format_source
 import yaml
 
 
@@ -33,6 +34,23 @@ def make_notebook():
     cells = [md, code1, code2]
     nb = new_notebook(metadata=dict(language='python'), cells=cells)
     return nb
+
+
+def test_format_source():
+    # Given
+    src = '  \n  \n  print(1)\n  \n123\n  '
+    # When
+    code = format_source(src)
+    # Then
+    expect = ['', '', '  print(1)', '  ', '123', '  ']
+    assert code == '\n'.join(expect)
+
+    # Given
+    src = '  \n  \n  '
+    # When
+    code = format_source(src)
+    # Then
+    assert code == '\n\n'
 
 
 def test_nb_to_yaml():

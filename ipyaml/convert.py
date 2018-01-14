@@ -24,6 +24,23 @@ def to_dict(o):
         return o
 
 
+def format_source(text):
+    '''Given source lines of code as a string, strip leading lines and
+    return a block of text.  This is done so the output is valid YAML.
+    '''
+    src = text.splitlines()
+    code = []
+    first_non_empty_line = 0
+    for line in src:
+        if len(line.strip()) == 0:
+            code.append('')
+            first_non_empty_line += 1
+        else:
+            break
+    code += src[first_non_empty_line:]
+    return '\n'.join(code)
+
+
 def nb_to_yaml(nb, dump_output=True):
     """Given a notebook instance, generate the YAML.
     """
@@ -36,7 +53,7 @@ def nb_to_yaml(nb, dump_output=True):
         prefix = ''
         cell_type = cell['cell_type']
         out.write(indent('- %s: |\n' % cell_type, prefix))
-        code = ''.join(cell['source'])
+        code = format_source(cell['source'])
         prefix = 4*' '
         out.write(indent(code, prefix))
         out.write('\n\n')
